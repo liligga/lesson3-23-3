@@ -1,13 +1,18 @@
 import {useSelector, useDispatch} from 'react-redux'
-import { useState } from 'react'
-import {addTodo, deleteTodo} from '../store/todoReducer'
+import { useEffect, useState } from 'react'
+import {addTodo, deleteTodo, fetchTodos} from '../store/todoReducer'
 
 
 const TodoList = () => {
     const [newTodo, setNewTodo] = useState('')
-    const todos = useSelector(state => state.todos)
+    const todos = useSelector(state => state.todos.todos)
     const dispatch = useDispatch()
 
+
+    useEffect(() => {
+        dispatch(fetchTodos())
+    }, [dispatch])
+    
 
     const inputTodo = (e) => {
         setNewTodo(e.target.value)
@@ -37,10 +42,10 @@ const TodoList = () => {
                 {todos && 
                     <ul>
                         {todos.map(t => 
-                            <li onClick={() =>
+                            <li key={t.id} onClick={() =>
                                     clickDeleteTodo(t)
                                 }>
-                                {t}
+                                {t.title}
                             </li>
                         )}
                     </ul>
