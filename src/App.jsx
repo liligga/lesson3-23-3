@@ -1,11 +1,16 @@
 import './App.css'
-import TodoList from './components/TodoList'
+import TodoList from './pages/TodoList'
+import EditTodo from './pages/EditTodo'
+import {Routes, Route} from 'react-router-dom'
+
 
 function App() {
   return (
-    <>
-      <TodoList />
-    </>
+    <Routes>
+      <Route path='/' element={<TodoList />} />
+      <Route path='/:id' element={<EditTodo />} />
+      
+    </Routes>
   )
 }
 
